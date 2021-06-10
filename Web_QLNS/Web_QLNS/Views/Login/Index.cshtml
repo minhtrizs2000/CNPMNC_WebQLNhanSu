@@ -1,0 +1,84 @@
+﻿@model Web_QLNS.Models.TaiKhoan
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+
+    <link href="~/css/MyStyle.css" rel="stylesheet" />
+    <link href="~/css/LoginPage.css" rel="stylesheet" />
+</head>
+<body>
+    <section class="loginPage">
+        <div id="login__Overlay">
+
+        </div>
+        <div class="container">
+            <h1><i class="fa fa-cog"></i>uản lý nhân sự</h1>
+            <div class="login__content">
+                <div id="login__bg"></div>
+                <button type="button" data-toggle="modal" data-target="#loginModal" class="myBtn" id="loginBtn">Đăng nhập</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scrollable modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="HSNVLable" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center w-100" id="HSNVLable">Đăng nhập</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("Index", "Login"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group row">
+                            <div class="col-sm-3 col-form-label">
+                                @Html.LabelFor(model => model.Idnv)
+                            </div>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.Idnv)
+                            </div>
+                            <div class="col-sm-12 text-danger text-center">
+                                @Html.ValidationMessageFor(model => model.Idnv)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3 col-form-label">
+                                @Html.LabelFor(model => model.Pass)
+                            </div>
+                            <div class="col-sm-9">
+                                @Html.PasswordFor(model => model.Pass)
+                            </div>
+                            <div class="col-sm-12 text-danger text-center">
+                                @Html.ValidationMessageFor(model => model.Pass)
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 text-center">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                            <input type="submit" value="Đăng nhập" class="btn btn-warning" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script src="~/js/LoginPage.js"></script>
+</body>
+</html>

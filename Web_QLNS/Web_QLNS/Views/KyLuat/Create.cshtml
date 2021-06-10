@@ -1,0 +1,43 @@
+﻿@model Web_QLNS.Controllers.ViewModelDG
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="col-md-2">
+
+</div>
+<div class="col-md-1">
+    <a asp-action="Index" class="btn btn-outline-warning mt-md-5"><i class="fa fa-angle-left"></i> Trở về </a>
+</div>
+<div class="col-md-6 mt-md-5">
+    <form asp-action="Create" class="create__NV">
+        <h1 class="text-center mb-md-5">Kỷ luật nhân viên</h1>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <label asp-for="kyLuat.Ngay" class="col-md-3 control-label"></label>
+            <input asp-for="kyLuat.Ngay" class="col-md-9 form-control" />
+            <span asp-validation-for="kyLuat.Ngay" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label asp-for="kyLuat.IdnvNavigation.TenNv" class="col-md-3 control-label"></label>
+            <select asp-for="kyLuat.Idnv" class="col-md-9 form-control">
+                @foreach (var nv in Model.ListNhanVien)
+                {
+                    <option value="@nv.Idnv"> @nv.TenNv </option>
+                }
+            </select>
+        </div>
+        <div class="form-group row">
+            <label asp-for="kyLuat.IdloaiKlNavigation.TenKl" class="control-label col-md-3"></label>
+            <select asp-for="kyLuat.IdloaiKl" class="form-control col-md-9">
+                @foreach (var lkl in Model.ListloaiKyLuat)
+                {
+                    <option value="@lkl.IdloaiKl">@lkl.TenKl </option>
+                }
+            </select>
+        </div>
+        <div class="form-group row">
+            <input type="submit" value="Xác nhận" class="btn btn-outline-warning col-md-12" />
+        </div>
+    </form>
+</div>

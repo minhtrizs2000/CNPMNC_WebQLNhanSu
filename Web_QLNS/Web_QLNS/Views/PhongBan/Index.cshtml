@@ -1,0 +1,64 @@
+﻿@model Web_QLNS.Controllers.ViewModelNV
+
+
+@{
+    ViewData["Title"] = "Phòng ban";
+    Layout = "_Layout";
+}
+
+<div class="col-md-2">
+    <div id="mySideBar">
+        <ul>
+            <li><h3><i class="fa fa-tasks"></i>Tác vụ</h3></li>
+            <li><a asp-controller="NhanVien" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "NhanVien" ? "active" : "")"><i class="fa fa-user-alt"></i>Quản lý nhân viên</a></li>
+            <li><a asp-controller="PhongBan" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "PhongBan" ? "active" : "")"><i class="fa fa-door-open"></i>Quản lý phòng ban</a></li>
+            <li><a asp-controller="ChucVu" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "ChucVu" ? "active" : "")"><i class="fa fa-chair"></i>Quản lý chức vụ</a></li>
+            <li><a asp-controller="Luong" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Luong" ? "active" : "")"><i class="fa fa-donate"></i>Quản lý lương</a></li>
+            <li><a asp-controller="ChamCong" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "ChamCong" ? "active" : "")"><i class="fa fa-calendar-check"></i>Quản lý chấm công</a></li>
+            <li><a asp-controller="DanhGia" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "DanhGia" ? "active" : "")"><i class="fa fa-child"></i>Quản lý đánh giá</a></li>
+        </ul>
+    </div>
+    <div class="mySubTask">
+        <a class="btn myBtn" asp-action="Create">Thêm phòng ban mới</a>
+    </div>
+</div>
+
+<div class="col-md-10">
+    <div class="myBodyContent">
+        <div class="myTableTitle">
+            <h3>Phòng ban</h3>
+        </div>
+        <br />
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th>
+                        <label asp-for="phongBan.Idpb" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="phongBan.TenPb" class="control-label"></label>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pb in Model.ListPhongBan)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => pb.Idpb)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => pb.TenPb)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@pb.Idpb" class="btn btn-outline-info">Edit</a>
+                            @*<a asp-action="Details" asp-route-id="@pb.Idpb" class="btn btn-outline-warning">Details</a>*@
+                            <a asp-action="Delete" asp-route-id="@pb.Idpb" class="btn btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

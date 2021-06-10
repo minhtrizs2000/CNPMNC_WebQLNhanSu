@@ -1,0 +1,117 @@
+﻿@model Web_QLNS.Controllers.ViewModelNV
+@using X.PagedList.Mvc.Core;
+@using Microsoft.AspNetCore.Mvc;
+
+@{
+    ViewData["Title"] = "Nhân Viên";
+    Layout = "_Layout";
+}
+
+
+<div class="col-md-2">
+    <div id="mySideBar">
+        <ul>
+            <li><h3><i class="fa fa-tasks"></i>Tác vụ</h3></li>
+            <li><a asp-controller="NhanVien" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "NhanVien" ? "active" : "")"><i class="fa fa-user-alt"></i>Quản lý nhân viên</a></li>
+            <li><a asp-controller="PhongBan" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "PhongBan" ? "active" : "")"><i class="fa fa-door-open"></i>Quản lý phòng ban</a></li>
+            <li><a asp-controller="ChucVu" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "ChucVu" ? "active" : "")"><i class="fa fa-chair"></i>Quản lý chức vụ</a></li>
+            <li><a asp-controller="Luong" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Luong" ? "active" : "")"><i class="fa fa-donate"></i>Quản lý lương</a></li>
+            <li><a asp-controller="ChamCong" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "ChamCong" ? "active" : "")"><i class="fa fa-calendar-check"></i>Quản lý chấm công</a></li>
+            <li><a asp-controller="DanhGia" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "DanhGia" ? "active" : "")"><i class="fa fa-child"></i>Quản lý đánh giá</a></li>
+        </ul>
+    </div>
+    <div class="mySubTask">
+        <a class="btn myBtn" asp-action="Create">Thêm hồ sơ nhân viên</a>
+    </div>
+</div>
+
+<div class="col-md-10">
+    <div class="myBodyContent">
+        <div class="myTableTitle">
+            <h3>Nhân viên</h3>
+        </div>
+        @using (Html.BeginForm("Index", "NhanVien", FormMethod.Get, new { @style = "float: right; width: 90%; text-align: center" }))
+        {
+            <input type="text" id="searchString" style="width:40%" name="searchString" @*placeholder="Find by id or name"*@>
+            <input type="submit" value="Search" class="btn btn-outline-info" style="margin-bottom:5px" />
+        }
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <label asp-for="nhanVien.Idnv" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="nhanVien.TenNv" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="nhanVien.HinhAnh" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="chuVu.TenCv" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="phongBan.TenPb" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="hopDongLaoDong.LuongCb" class="control-label"></label>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var nv in Model.ListNhanViens)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => nv.Idnv)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => nv.TenNv)
+                        </td>
+                        <td>
+                            <img src="@("/img/" + nv.HinhAnh)" width="70" height="70" />
+                        </td>
+                        <td>
+                            @foreach (var cv in Model.ListChucVu)
+                            {
+                                if (nv.Idcv == cv.Idcv)
+                                {
+                                    @cv.TenCv
+                                }
+                            }
+                        </td>
+                        <td>
+                            @foreach (var pb in Model.ListPhongBan)
+                            {
+                                if (nv.Idpb == pb.Idpb)
+                                {
+                                    @pb.TenPb
+                                }
+                            }
+                            @*@Html.DisplayFor(modelItem => nv.IdpbNavigation.Idpb)*@
+                        </td>
+                        <td>
+                            @foreach (var lcb in Model.ListHopDongLaoDong)
+                            {
+                                if (nv.Idnv == lcb.Idnv)
+                                {
+                                    <samp>@String.Format("{0:N0}", ((int)lcb.LuongCb)) VNĐ</samp>
+                                }
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@nv.Idnv" class="btn btn-outline-info">Edit</a>
+                            <a asp-action="Details" asp-route-id="@nv.Idnv" class="btn btn-outline-warning">Details</a>
+                            <a asp-action="Delete" asp-route-id="@nv.Idnv" class="btn btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.PagedListPager(Model.ListNhanViens, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+
+    </div>
+</div>

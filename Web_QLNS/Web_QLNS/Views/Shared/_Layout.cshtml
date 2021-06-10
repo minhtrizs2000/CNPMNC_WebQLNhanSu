@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Web_QLNS</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/js/script.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <link href="~/css/MyStyle.css" rel="stylesheet" />
+</head>
+<body class="py-0">
+    <header id="myHeader">
+        <div class="container-fluid">
+            <nav id="myNavBar" class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" asp-action="Index" asp-controller="NhanVien"><i class="fa fa-cog"></i>uản lý nhân sự</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav" style="margin: 0 auto;">
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "NhanVien" ? "active" : "")">
+                            <a class="nav-link" asp-controller="NhanVien" asp-action="Index">Nhân viên <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "PhongBan" ? "active" : "")">
+                            <a class="nav-link" asp-controller="PhongBan" asp-action="Index">Phòng ban</a>
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "ChucVu" ? "active" : "")">
+                            <a class="nav-link" asp-controller="ChucVu" asp-action="Index">Chức vụ</a>
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Luong" ? "active" : "")">
+                            <a class="nav-link" asp-controller="Luong" asp-action="Index">Lương</a>
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "ChamCong" ? "active" : "")">
+                            <a class="nav-link" asp-controller="ChamCong" asp-action="Index">Chấm công</a>
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "DanhGia" ? "active" : "")">
+                            <a class="nav-link" asp-controller="DanhGia" asp-action="Index">Đánh giá</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="logOutBtn">
+                    <button type="button" data-toggle="modal" data-target="#logOut" class="myBtn">Đăng xuất</button>
+                </div>
+
+            </nav>
+        </div>
+    </header>
+
+    <section class="myBody">
+        <div class="container-fluid">
+            <div class="row">
+                @RenderBody()
+            </div>
+        </div>
+    </section>
+
+    <!-- Scrollable modal -->
+    <div class="modal fade" id="logOut" tabindex="-1" aria-labelledby="logOutLable" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center w-100" id="logOutLable">Đăng xuất</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h1>Bạn muốn đăng xuất ?</h1>
+                </div>
+                <div class="modal-footer text-center" style="display: block">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Hủy</button>
+                    <a class="btn btn-danger" href=@Url.Action("Index", "Login")>Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+﻿body {
+    position: relative;
+    margin:0;
+    padding:0;
+}
+
+#Avatar {
+    margin: 0;
+    position:absolute;
+    left: 50%;
+    transform: translate(-50%, 50%);
+
+
+    width: 400px;
+    height: 400px;
+    background-color:#FE9A2E;
+
+    border: 30px solid #FFFFFF;
+    border-radius: 50%;
+
+    transition: all 0.5s;
+}
+
+.Avatar__content {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+    overflow: hidden;
+
+    width: 85%;
+    height: 85%;
+    text-align: center;
+    align-items: center;
+}
+
+.Avatar__content img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+
+    border-radius: 50%;
+    transition: all 0.5s;
+}
+
+.Avatar__content a{
+    display: block;
+    text-decoration: none;
+    color: #000000;
+    font-size: 30px;
+    padding: 10px 0;
+}
+
+.Avatar__content a:hover{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.Avatar__content:hover img{
+    width: 50%;
+    height: 50%;
+}
+
+/*****************************************************************************************************/
+
+.BangLuong{
+    position: relative;
+}
+
+#BangLuong__overlay{
+    position: absolute;
+    left:-750px;
+    top:0;
+    width: 100%;
+    height: 100vh;
+    background-color: #FE9A2E;
+    transform: skewX(-45deg);
+
+    text-align: right;
+    transition: all 0.5s;
+}
+
+.BangLuong__content{
+    position: absolute;
+    right: 700px;
+    top: 150px;
+
+    width: 50%;
+    height: 50%;
+}
+
+.BangLuong__content a{
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 70px;
+}
+.BangLuong__content a:hover{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+/******************************************************************************************************/
+.BangChamCong {
+    position: absolute;
+    left: 60%;
+    width: 40%;
+    height: 200px;
+    color: black;
+    transform: translate(0%, 230%);
+    transition: all 0.5s;
+}
+
+.BangChamCong__content {
+    width: 100%;
+    height: 50%;
+    transform: translate(0%, 100%);
+}
+
+.BangChamCong__content a {
+    text-decoration: none;
+    color: #FE9A2E;
+    font-size: 70px;
+    padding-left: 60px;
+}
+.BangChamCong__content a:hover {
+    text-decoration: none;
+    color: #FE9A2E;
+}

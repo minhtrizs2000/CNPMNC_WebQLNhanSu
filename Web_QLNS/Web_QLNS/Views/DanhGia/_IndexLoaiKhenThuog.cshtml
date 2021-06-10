@@ -1,0 +1,54 @@
+﻿@model Web_QLNS.Controllers.ViewModelDG
+
+<div class="col-md-10">
+    <div class="myBodyContent">
+        <div class="myTableTitle">
+            <h3>Loại khen thưởng</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-3" style="padding: 0 15px;">
+                <a class="btn myBtn" asp-action="Create" asp-controller="LoaiKhenThuong">Thêm loại khen thưởng</a>
+            </div>
+            <div class="col-md-3" style="padding: 0 15px;">
+                <a class="btn myBtn" asp-action="Index" asp-controller="KhenThuong">Danh sách khen thưởng</a>
+            </div>
+        </div>
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <label asp-for="LoaikhenThuong.IdloaiKt" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="LoaikhenThuong.TenKt" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="LoaikhenThuong.GiaTri" class="control-label"></label>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ListLoaikhenThuong)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdloaiKt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenKt)
+                        </td>
+                        <td>
+                            @string.Format("{0:N0}", item.GiaTri)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="LoaiKhenThuong" asp-route-id="@item.IdloaiKt" class="btn btn-outline-info">Edit</a>
+                            <a asp-action="Delete" asp-controller="LoaiKhenThuong" asp-route-id="@item.IdloaiKt" class="btn btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

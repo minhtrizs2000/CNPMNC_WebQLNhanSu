@@ -1,0 +1,98 @@
+﻿@model Web_QLNS.Controllers.ViewModelCC
+
+@{
+    ViewData["Title"] = "Chi tiết chấm công";
+    Layout = "_LayoutChamCongNV";
+
+    DateTime now = DateTime.Now;
+    QLNSContext database = new QLNSContext();
+}
+
+<style>
+    table {
+      overflow: hidden;
+    }
+
+    tr:hover {
+      background-color: #FE9A2E50;
+    }
+
+    td, th {
+      position: relative;
+    }
+    td:hover::after,
+    th:hover::after {
+      content: "";
+      position: absolute;
+      background-color: #FE9A2E50;
+      left: 0;
+      top: -5000px;
+      height: 10000px;
+      width: 100%;
+      z-index: -1;
+    }
+</style>
+
+<div class="col-md-1" style="background-color: #FE9A2E">
+    <div class="text-center">
+        <img src="@("/img/" + Model.nhanVien.HinhAnh)" width="70" height="70" style="border-radius:50%;" />
+        @Html.DisplayFor(model => Model.nhanVien.TenNv)
+    </div>
+    @{
+        <a asp-action="Index" asp-controller="User" class="btn btn-warning mt-md-5"><i class="fa fa-angle-left"></i> Trở về </a>
+    }
+</div>
+<div class="col-md-11">
+    <div class="myBodyContent" style="overflow-x: scroll">
+        <div class="myTableTitle">
+            <h3>Bảng chấm công</h3>
+        </div>
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Tháng\Ngày
+                    </th>
+                    @{
+                        for (int i = 0; i < 31; i++)
+                        {
+                            <th>
+                                @(i+1)
+                            </th>
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @{ 
+                    for(var i = 1; i <= now.Month; i++)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            @{ 
+                                for (var d = 1; d < 32; d++)
+                                {
+
+                                    ChamCong cc = database.ChamCongs.Where(s => s.Idnv == Model.nhanVien.Idnv && s.Ngay.Month == i && s.Ngay.Day == d).FirstOrDefault();
+                                    if(cc != null)
+                                    {
+                                        <td>
+                                            <input type="checkbox" checked onclick="return false;" />
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <input type="checkbox" onclick="return false;" />
+                                        </td>
+                                    }
+                                }
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

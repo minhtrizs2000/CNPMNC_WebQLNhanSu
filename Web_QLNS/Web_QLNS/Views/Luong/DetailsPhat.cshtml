@@ -1,0 +1,68 @@
+﻿@model Web_QLNS.Controllers.ViewModelDG
+
+@{
+    ViewData["Title"] = "DetailsPhat";
+    Layout = "_LayoutChamCongNV";
+    DateTime now = DateTime.Now;
+    QLNSContext database = new QLNSContext();
+}
+
+
+
+<div class="col-md-1" style="background-color: #FE9A2E">
+    <div class="text-center">
+        <img src="@("/img/" + Model.nhanVien.HinhAnh)" width="70" height="70" style="border-radius:50%;" />
+        @Html.DisplayFor(model => Model.nhanVien.TenNv)
+    </div>
+    <a asp-action="Details" asp-route-id="@Model.nhanVien.Idnv" asp-controller="Luong" class="btn btn-warning mt-md-5"><i class="fa fa-angle-left"></i> Trở về </a>
+</div>
+
+<div class="col-md-11">
+    <div class="myBodyContent" style="overflow-x: scroll">
+        <div class="myTableTitle">
+            <h3>Chi tiết tiền phạt</h3>
+        </div>
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Thứ
+                    </th>
+                    <th>
+                        Ngày
+                    </th>
+                    <th>
+                        Tháng
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => Model.loaiKyLuat.TenKl)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => Model.loaiKyLuat.GiaTri)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.ListkyLuat)
+                {
+                    <tr>
+                        <td>@item.Ngay.Value.DayOfWeek</td>
+                        <td>@item.Ngay.Value.Day</td>
+                        <td>@item.Ngay.Value.Month</td>
+                        @foreach(var lkl in Model.ListloaiKyLuat)
+                        {
+                            if(item.IdloaiKl == lkl.IdloaiKl)
+                            {
+                                <td>@lkl.TenKl</td>
+                                <td>@lkl.GiaTri</td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

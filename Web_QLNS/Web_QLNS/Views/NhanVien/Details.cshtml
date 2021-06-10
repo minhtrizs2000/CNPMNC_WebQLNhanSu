@@ -1,0 +1,154 @@
+﻿@model Web_QLNS.Controllers.ViewModelNV
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container-fluid">
+    <div class="detailNV__content">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <img src="@("~/img/" + Model.nhanVien.HinhAnh)" asp-append-version="true" width="300" height="300" style="padding-bottom: 30px;" />
+                <div class="row">
+                    <div class="col-md-5">
+                        <label asp-for="nhanVien.Idnv" class="control-label"></label>
+                    </div>
+                    <div class="col-md-5">
+                        @Model.nhanVien.Idnv
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label asp-for="nhanVien.TenNv" class="control-label"></label>
+                    </div>
+                    <div class="col-md-5">
+                        @Model.nhanVien.TenNv
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h2>Thông tin cá nhân</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label asp-for="nhanVien.GioiTinh" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        @{ if (Model.nhanVien.GioiTinh == true)
+                            {
+                                <span>Nam</span>
+                            }
+                            else
+                            {
+                                <span>Nữ</span>
+                            }}
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="nhanVien.NgaySinh" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        @Model.nhanVien.NgaySinh.Value.Date
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="nhanVien.Cmnd" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        @Model.nhanVien.Cmnd
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="nhanVien.DiaChi" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        @Model.nhanVien.DiaChi
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="nhanVien.DienThoai" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        @Model.nhanVien.DienThoai
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="nhanVien.Email" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        @Model.nhanVien.Email
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="nhanVien.TinhTrang" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        @{ if (Model.nhanVien.TinhTrang == true)
+                            {
+                                <span>Đang làm việc</span>
+                            }
+                            else
+                            {
+                                <span>Nghỉ việc</span>
+                            }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 pt-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label asp-for="chuVu.TenCv" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        @foreach (var cv in Model.ListChucVu)
+                        {
+                            if (cv.Idcv == Model.nhanVien.Idcv)
+                            {
+                                @cv.TenCv
+                            }
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="phongBan.TenPb" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        @foreach (var pb in Model.ListPhongBan)
+                        {
+                            if (pb.Idpb == Model.nhanVien.Idpb)
+                            {
+                                @pb.TenPb
+                            }
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label">Mã hợp đồng</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Model.nhanVien.Idnv
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="hopDongLaoDong.LuongCb" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        @foreach (var hdld in Model.ListHopDongLaoDong)
+                        {
+                            if (hdld.Idnv == Model.nhanVien.Idnv)
+                            {
+                                @hdld.LuongCb
+                            }
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="hopDongLaoDong.NgayKy" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        @foreach (var hdld in Model.ListHopDongLaoDong)
+                        {
+                            if (hdld.Idnv == Model.nhanVien.Idnv)
+                            {
+                                @hdld.NgayKy
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: right;padding-top: 20px;">
+            <a asp-action="Index" class="btn btn-outline-warning"><i class="fa fa-angle-left"></i> Back </a>
+            <a asp-action="Edit" asp-route-id="@Model.nhanVien.Idnv" class="btn btn-outline-primary">Edit</a>
+        </div>
+    </div>
+</div>

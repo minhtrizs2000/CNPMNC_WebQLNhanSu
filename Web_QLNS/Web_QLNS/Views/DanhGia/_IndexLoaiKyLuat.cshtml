@@ -1,0 +1,54 @@
+﻿@model Web_QLNS.Controllers.ViewModelDG
+
+<div class="col-md-10">
+    <div class="myBodyContent">
+        <div class="myTableTitle">
+            <h3>Loại kỷ luật</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-3" style="padding: 0 15px;">
+                <a class="btn myBtn" asp-action="Create" asp-controller="LoaiKyLuat">Thêm loại kỷ luật</a>
+            </div>
+            <div class="col-md-3" style="padding: 0 15px;">
+                <a class="btn myBtn" asp-action="Index" asp-controller="KyLuat">Danh sách kỷ luật</a>
+            </div>
+        </div>
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <label asp-for="loaiKyLuat.IdloaiKl" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="loaiKyLuat.TenKl" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="loaiKyLuat.GiaTri" class="control-label"></label>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ListloaiKyLuat)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdloaiKl)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenKl)
+                        </td>
+                        <td>
+                            @string.Format("{0:N0}", item.GiaTri)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="LoaiKyLuat" asp-route-id="@item.IdloaiKl" class="btn btn-outline-info">Edit</a>
+                            <a asp-action="Delete" asp-controller="LoaiKyLuat" asp-route-id="@item.IdloaiKl" class="btn btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,185 @@
+﻿*{
+    box-sizing: border-box;
+}
+
+body {
+    transition: all 0.5s;
+}
+
+header{
+    background-color: #FE9A2E;
+}
+
+#myHeader{
+    padding: 10px 0;
+}
+
+#myNavBar {
+    font-size: 20px;
+    text-align: center;
+    background-color: #FE9A2E;
+    margin: 0 0;
+    padding: 0;
+}
+
+#myNavBar ul li{
+    width: 130px;
+}
+
+#myNavBar ul li a{
+    color:#fff;
+    transition: all 0.5s;
+}
+
+#myNavBar ul li a:hover{
+    background-color: #CC6A00;
+}
+
+#myNavBar .active{
+    background-color: #CC6A00;
+    font-weight:700;
+} 
+
+#myNavBar .navbar-brand{
+    font-size: 30px;
+    padding-left: 0;
+    color:#fff;
+}
+
+#myNavBar .logOutBtn button{
+    width: 130px;
+    height: 50px;
+    font-size:20px;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    opacity: 0.3;
+    transition: all 0.5s;
+    border-radius: 10px;
+}
+
+#myNavBar .logOutBtn button:hover{
+    opacity: 1;
+    background-color: #CC6A00;
+}
+
+
+/*--------------body content--------------*/
+#mySideBar{
+    padding: 20px 0;
+    text-align: left;
+}
+#mySideBar h3{
+    font-size:20px;
+    background-color: #FE9A2E;
+}
+#mySideBar ul{
+    list-style: none;
+    padding: 0;
+}
+#mySideBar ul li{
+    padding: 10px 0;
+}
+#mySideBar ul li a{
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    transition: all 0.3s;
+}
+#mySideBar i{
+    padding: 10px 0 10px 10px;
+    width: 50px;
+}
+#mySideBar ul li a:hover{
+    color: #FE9A2E;
+}
+
+.myBodyContent{
+    padding: 30px 0;
+}
+
+#mySideBar .active{
+    color: #FE9A2E;
+}
+
+/*------------Nhân viên index-------------- */
+.myTableTitle{
+    background-color: #FE9A2E;
+    color: #fff;
+}
+.myTableTitle h3{
+    padding: 5px 0 5px 20px;
+    font-size: 22px;
+}
+.mySearchBar{
+    text-align:center;
+    vertical-align: middle;
+    height: 50px;
+}
+.mySearchBar input{
+    max-width: none;
+    width: 80%;
+    height: 30px;
+    font-size:20px;
+}
+.mySubTask{
+    text-align:center;
+}
+.myBtn {
+    width: 100%;
+    height:50px;
+    background-color: #FE9A2E;
+    font-size:20px;
+    border: 2px solid #fff;
+    transition: all 0.5s;
+    color: #fff;
+}
+.myBtn:hover{
+    border: 2px solid #FE9A2E;
+    background-color: #fff;
+    color: #FE9A2E;
+}
+
+
+/************************************  ADD NHÂN VIÊN  *********************************/
+.create__NV {
+    background-color: #00000090;
+    color: #ffffff;
+    padding:20px 50px;
+    border-radius: 10px;
+}
+
+
+/*************************************  Detail nhân viên  ***********************************/
+.detailNV__content{
+    border: 5px solid #FE9A2E;
+    border-radius: 10px;
+    margin: 5% 5%;
+    padding: 5% 2%;
+}
+
+/*************************************  Paging Style  ***********************************/
+.pagination-container{
+
+}
+.pagination-container .pagination{
+    
+}
+.pagination-container .pagination li{
+    background-color: #FE9A2E;
+    padding: 5px 10px;
+    margin: 0 3px;
+    border: 2px solid #FE9A2E;
+    color: #FFFFFF;
+    font-size: 18px;
+}
+.pagination-container .pagination .active{
+    background-color: #FFFFFF;
+    color: #FE9A2E;
+}
+.pagination-container .pagination li a{
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 18px;
+}

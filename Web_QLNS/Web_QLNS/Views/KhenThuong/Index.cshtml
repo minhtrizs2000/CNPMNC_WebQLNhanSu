@@ -1,0 +1,90 @@
+﻿@model Web_QLNS.Controllers.ViewModelDG
+@using X.PagedList.Mvc.Core;
+@using Microsoft.AspNetCore.Mvc;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="col-md-12">
+    <div class="myBodyContent">
+        <div class="myTableTitle">
+            <h3>Danh sách khen thưởng</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-1" style="padding: 0 15px;">
+                <a class="btn btn-outline-warning" asp-action="Index" asp-controller="DanhGia">Trở về</a>
+            </div>
+            <div class="col-md-2" style="padding: 0 15px;">
+                <a class="btn btn-warning" asp-action="Create">Khen thưởng nhân viên</a>
+            </div>
+            <div class="col-md-9">
+                @using (Html.BeginForm("Index", "KhenThuong", FormMethod.Get, new { @style = "float: right; width: 90%; text-align: center" }))
+                {
+                    <input type="text" id="searchString" style="width:40%" name="searchString" @*placeholder="Find by id or name"*@>
+                    <input type="submit" value="Search" class="btn btn-outline-info" style="margin-bottom:5px" />
+                }
+            </div>
+        </div>
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <label asp-for="khenThuong.Idkt" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="khenThuong.Ngay" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="nhanVien.TenNv" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="LoaikhenThuong.TenKt" class="control-label"></label>
+                    </th>
+                    <th>
+                        <label asp-for="LoaikhenThuong.GiaTri" class="control-label"></label>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ListKhenThuongs)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Idkt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ngay)
+                        </td>
+                        <td>
+                            @foreach (var nv in Model.ListNhanVien)
+                            {
+                                if (nv.Idnv == item.Idnv)
+                                {
+                                    @nv.TenNv
+                                }
+                            }
+                        </td>
+                        @foreach (var lkt in Model.ListLoaikhenThuong)
+                        {
+                            if (lkt.IdloaiKt == item.IdloaiKt)
+                            {
+                                <td>@lkt.TenKt</td>
+                                <td>@lkt.GiaTri</td>
+                            }
+                        }
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Idkt" class="btn btn-outline-info">Edit</a>
+                            @*<a asp-action="Details" asp-route-id="@item.Idkt">Details</a> |*@
+                            <a asp-action="Delete" asp-route-id="@item.Idkt" class="btn btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.PagedListPager(Model.ListKhenThuongs, page => Url.Action("Index",
+                                                                   new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>

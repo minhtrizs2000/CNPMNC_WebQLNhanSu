@@ -1,0 +1,211 @@
+﻿@model Web_QLNS.Controllers.ViewModelBL
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_LayoutChamCongNV";
+    DateTime now = DateTime.Now;
+    QLNSContext database = new QLNSContext();
+}
+<style>
+    table {
+        overflow: hidden;
+    }
+
+    tr:hover {
+        background-color: #FE9A2E50;
+    }
+
+    td, th {
+        position: relative;
+    }
+
+        td:hover::after,
+        th:hover::after {
+            content: "";
+            position: absolute;
+            background-color: #FE9A2E50;
+            left: 0;
+            top: -5000px;
+            height: 10000px;
+            width: 100%;
+            z-index: -1;
+        }
+</style>
+<div class="col-md-1" style="background-color: #FE9A2E">
+    <div class="text-center">
+        <img src="@("/img/" + Model.nhanVien.HinhAnh)" width="70" height="70" style="border-radius:50%;" />
+        @Html.DisplayFor(model => Model.nhanVien.TenNv)
+    </div>
+    @{
+        <a asp-action="Index" asp-controller="Luong" class="btn btn-warning mt-md-5"><i class="fa fa-angle-left"></i> Trở về </a>
+    }
+</div>
+<div class="col-md-11">
+    <div class="myBodyContent" style="overflow-x: scroll">
+        <div class="myTableTitle">
+            <h3>Bảng lương</h3>
+        </div>
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Tháng
+                    </th>
+                    <th>
+                        Ngày công
+                    </th>
+                    <th>
+                        Ngày nghỉ
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => Model.ListHopDongLaoDong.Where(x => x.Idnv == Model.nhanVien.Idnv).FirstOrDefault().LuongCb)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => Model.ListChucVu.Where(x => x.Idcv == Model.nhanVien.Idcv).FirstOrDefault().TenCv)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(modelItem => Model.ListChucVu.Where(x => x.Idcv == Model.nhanVien.Idcv).FirstOrDefault().HeSo)
+                    </th>
+                    <th>
+                        Tiền thưởng
+                    </th>
+                    <th>
+                        Tiền phạt
+                    </th>
+                    <th>
+                        Thực nhận
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    for (var i = 1; i < now.Month; i++)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            @{
+                                int ngayCong = 0;
+                                int ngayNghi = 0;
+                                switch (i)
+                                {
+                                    case 4:
+                                    case 6:
+                                    case 9:
+                                    case 11:
+                                        {
+                                            ngayCong = 30;
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            ngayCong = 28;
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            ngayCong = 31;
+                                            break;
+                                        }
+                                }
+                                for (var d = 1; d <= System.DateTime.DaysInMonth(now.Year, i); d++)
+                                {
+
+                                    ChamCong cc = database.ChamCongs.Where(s => s.Idnv == Model.nhanVien.Idnv && s.Ngay.Month == i && s.Ngay.Day == d).FirstOrDefault();
+                                    if (cc == null)
+                                    {
+                                        DateTime date = new DateTime(now.Year, i, d);
+                                        if (date.DayOfWeek != DayOfWeek.Sunday)
+                                        {
+                                            ngayCong--;
+                                            ngayNghi++;
+                                        }
+                                    }
+                                }
+                                <td>
+                                    @ngayCong
+                                </td>
+                                <td>
+                                    @ngayNghi
+                                </td>
+                            }
+                            <td>
+                                @Html.DisplayFor(modelItem => Model.ListHopDongLaoDong.Where(x => x.Idnv == Model.nhanVien.Idnv).FirstOrDefault().LuongCb)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model.ListChucVu.Where(x => x.Idcv == Model.nhanVien.Idcv).FirstOrDefault().TenCv)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model.ListChucVu.Where(x => x.Idcv == Model.nhanVien.Idcv).FirstOrDefault().HeSo)
+                            </td>
+                            <td>
+                                @{
+                                    int thuong = 0;
+                                    foreach (var kt in Model.ListkhenThuong)
+                                    {
+                                        if (kt.Idnv == Model.nhanVien.Idnv && kt.Ngay.Value.Month == i)
+                                        {
+                                            foreach (var lkt in Model.ListLoaikhenThuong)
+                                            {
+                                                if (kt.IdloaiKt == lkt.IdloaiKt)
+                                                {
+                                                    thuong += lkt.GiaTri.Value;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (thuong != 0)
+                                    {
+                                        <a asp-action="DetailsThuongQuanLy" asp-route-th="@i" asp-route-id="@Model.nhanVien.Idnv">@string.Format("{0:N0}", thuong)</a>
+                                    }
+                                    else
+                                    {
+                                        @thuong
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @{
+                                    int phat = 0;
+                                    foreach (var kl in Model.ListkyLuat)
+                                    {
+                                        if (kl.Idnv == Model.nhanVien.Idnv && kl.Ngay.Value.Month == i)
+                                        {
+                                            foreach (var lkl in Model.ListloaiKyLuat)
+                                            {
+                                                if (kl.IdloaiKl == lkl.IdloaiKl)
+                                                {
+                                                    phat += lkl.GiaTri.Value;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (phat != 0)
+                                    {
+                                        <a asp-action="DetailsPhatQuanLy" asp-route-th="@i" asp-route-id="@Model.nhanVien.Idnv">@string.Format("{0:N0}", phat)</a>
+                                    }
+                                    else
+                                    {
+                                        @phat
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @{
+                                    double heSo = Model.ListChucVu.Where(x => x.Idcv == Model.nhanVien.Idcv).FirstOrDefault().HeSo.Value;
+                                    double luongCB = Model.ListHopDongLaoDong.Where(x => x.Idnv == Model.nhanVien.Idnv).FirstOrDefault().LuongCb;
+                                    double luongMoiNgay = luongCB / DateTime.DaysInMonth(now.Year, i);
+
+                                    double thucNhan = (luongCB * heSo) + thuong - phat - (ngayNghi * luongMoiNgay);
+
+                                    @string.Format("{0:N0}", thucNhan);
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

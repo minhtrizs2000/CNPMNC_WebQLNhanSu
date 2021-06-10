@@ -1,0 +1,61 @@
+﻿@model Web_QLNS.Controllers.ViewModelNV
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.hopDongLaoDong.Idnv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.nhanVien.TenNv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.hopDongLaoDong.LuongCb)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.hopDongLaoDong.NgayKy)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ListHopDongLaoDong) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Idnv)
+            </td>
+            <td>
+                @foreach (var nv in Model.ListNhanVien)
+                {
+                    if (nv.Idnv == item.Idnv)
+                    {
+                        @Html.DisplayFor(modelItem => nv.TenNv)
+                    }
+                }
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LuongCb)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayKy)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Idnv">Edit</a> @*|
+                <a asp-action="Details" asp-route-id="@item.Idnv">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.Idnv">Delete</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

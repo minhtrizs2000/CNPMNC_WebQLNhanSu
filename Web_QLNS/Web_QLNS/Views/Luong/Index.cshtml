@@ -1,0 +1,76 @@
+﻿@model Web_QLNS.Controllers.ViewModelBL
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="col-md-2">
+    <div id="mySideBar">
+        <ul>
+            <li><h3><i class="fa fa-tasks"></i>Tác vụ</h3></li>
+            <li><a asp-controller="NhanVien" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "NhanVien" ? "active" : "")"><i class="fa fa-user-alt"></i>Quản lý nhân viên</a></li>
+            <li><a asp-controller="PhongBan" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "PhongBan" ? "active" : "")"><i class="fa fa-door-open"></i>Quản lý phòng ban</a></li>
+            <li><a asp-controller="ChucVu" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "ChucVu" ? "active" : "")"><i class="fa fa-chair"></i>Quản lý chức vụ</a></li>
+            <li><a asp-controller="Luong" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Luong" ? "active" : "")"><i class="fa fa-donate"></i>Quản lý lương</a></li>
+            <li><a asp-controller="ChamCong" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "ChamCong" ? "active" : "")"><i class="fa fa-calendar-check"></i>Quản lý chấm công</a></li>
+            <li><a asp-controller="DanhGia" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "DanhGia" ? "active" : "")"><i class="fa fa-child"></i>Quản lý đánh giá</a></li>
+        </ul>
+    </div>
+</div>
+<div class="col-md-10">
+    <div class="myBodyContent">
+        <div class="myTableTitle">
+            <h3>Nhân viên</h3>
+        </div>
+        @using (Html.BeginForm("Index", "NhanVien", FormMethod.Get, new { @style = "float: right; width: 90%; text-align: center" }))
+        {
+            <input type="text" id="searchString" style="width:40%" name="searchString" @*placeholder="Find by id or name"*@>
+            <input type="submit" value="Search" class="btn btn-outline-info" style="margin-bottom:5px" />
+        }
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => Model.nhanVien.Idnv)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => Model.nhanVien.HinhAnh)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => Model.nhanVien.TenNv)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => Model.nhanVien.HopDongLaoDong.LuongCb)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var nv in Model.ListNhanVien)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => nv.Idnv)
+                        </td>
+                        <td>
+                            <img src="@("/img/" + nv.HinhAnh)" width="70" height="70" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => nv.TenNv)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => nv.HopDongLaoDong.LuongCb) VNĐ
+                        </td>
+                        <td>
+                            @*<a asp-action="Edit" asp-route-id="@nv.Idnv">Edit</a> |*@
+                            <a asp-action="DetailsQuanLy" asp-route-id="@nv.Idnv" class="btn btn-outline-info">Details</a>
+                            @*<a asp-action="Delete" asp-route-id="@nv.Idnv">Delete</a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

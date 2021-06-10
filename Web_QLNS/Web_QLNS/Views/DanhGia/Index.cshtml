@@ -1,0 +1,29 @@
+﻿@model Web_QLNS.Controllers.ViewModelDG
+
+@{
+    ViewData["Title"] = "Đánh Giá";
+}
+
+<h1 class="col-md-12 text-center">Đánh Giá Nhân Viên</h1>
+
+<div class="col-md-2">
+    <div id="mySideBar">
+        <ul>
+            <li><h3><i class="fa fa-tasks"></i>Tác vụ</h3></li>
+            <li><a asp-controller="NhanVien" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "NhanVien" ? "active" : "")"><i class="fa fa-user-alt"></i>Quản lý nhân viên</a></li>
+            <li><a asp-controller="PhongBan" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "PhongBan" ? "active" : "")"><i class="fa fa-door-open"></i>Quản lý phòng ban</a></li>
+            <li><a asp-controller="ChucVu" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "ChucVu" ? "active" : "")"><i class="fa fa-chair"></i>Quản lý chức vụ</a></li>
+            <li><a asp-controller="Luong" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Luong" ? "active" : "")"><i class="fa fa-donate"></i>Quản lý lương</a></li>
+            <li><a asp-controller="ChamCong" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "ChamCong" ? "active" : "")"><i class="fa fa-calendar-check"></i>Quản lý chấm công</a></li>
+            <li><a asp-controller="DanhGia" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "DanhGia" ? "active" : "")"><i class="fa fa-child"></i>Quản lý đánh giá</a></li>
+        </ul>
+    </div>
+</div>
+
+<partial name="_IndexLoaiKyLuat" model="Model" />
+
+<div class="col-md-2">
+
+</div>
+
+<partial name="_IndexLoaiKhenThuog" model="Model" />

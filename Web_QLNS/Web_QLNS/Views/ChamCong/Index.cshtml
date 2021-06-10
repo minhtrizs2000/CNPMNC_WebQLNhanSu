@@ -1,0 +1,141 @@
+﻿@model Web_QLNS.Controllers.ViewModelCC
+
+@{
+    ViewData["Title"] = "Chấm công";
+    Layout = "_Layout";
+
+    DateTime now = DateTime.Now;
+    QLNSContext database = new QLNSContext();
+}
+
+<style>
+    table {
+      overflow: hidden;
+    }
+
+    tr:hover {
+      background-color: #FE9A2E50;
+    }
+
+    td, th {
+      position: relative;
+    }
+    td:hover::after,
+    th:hover::after {
+      content: "";
+      position: absolute;
+      background-color: #FE9A2E50;
+      left: 0;
+      top: -5000px;
+      height: 10000px;
+      width: 100%;
+      z-index: -1;
+    }
+</style>
+
+<div class="col-md-2">
+    <div id="mySideBar">
+        <ul>
+            <li><h3><i class="fa fa-tasks"></i>Tác vụ</h3></li>
+            <li><a asp-controller="NhanVien" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "NhanVien" ? "active" : "")"><i class="fa fa-user-alt"></i>Quản lý nhân viên</a></li>
+            <li><a asp-controller="PhongBan" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "PhongBan" ? "active" : "")"><i class="fa fa-door-open"></i>Quản lý phòng ban</a></li>
+            <li><a asp-controller="ChucVu" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "ChucVu" ? "active" : "")"><i class="fa fa-chair"></i>Quản lý chức vụ</a></li>
+            <li><a asp-controller="Luong" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Luong" ? "active" : "")"><i class="fa fa-donate"></i>Quản lý lương</a></li>
+            <li><a asp-controller="ChamCong" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "ChamCong" ? "active" : "")"><i class="fa fa-calendar-check"></i>Quản lý chấm công</a></li>
+            <li><a asp-controller="DanhGia" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"].ToString() == "DanhGia" ? "active" : "")"><i class="fa fa-child"></i>Quản lý đánh giá</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="col-md-10">
+    <div class="myBodyContent" style="overflow-x: scroll">
+        <div class="myTableTitle">
+            <h3>Bảng chấm công tháng @now.Month </h3>
+        </div>
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Tên NV
+                    </th>
+                    @{
+                        int day = 0;
+                        switch (now.Month)
+                        {
+                            case 4:
+                            case 6:
+                            case 9:
+                            case 11:
+                                {
+                                    day = 30;
+                                    for (int i = 1; i <= day; i++)
+                                    {
+                                        <th>
+                                            @i/@now.Month
+                                        </th>
+                                    }
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    day = 30;
+                                    for (int i = 1; i <= day; i++)
+                                    {
+                                        <th>
+                                            @i/@now.Month
+                                        </th>
+                                    }
+                                    break;
+                                }
+                            default:
+                                {
+                                    day = 30;
+                                    for (int i = 1; i <= day; i++)
+                                    {
+                                        <th>
+                                            @i/@now.Month
+                                        </th>
+                                    }
+                                    break;
+                                }
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var nv in Model.ListNhanVien)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => nv.Idnv)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => nv.TenNv)
+                        </td>
+                        @for(var d = 1; d <= day; d++)
+                        {
+                            ChamCong cc = database.ChamCongs.Where(s => s.Idnv == nv.Idnv && s.Ngay.Month == now.Month && s.Ngay.Day == d).FirstOrDefault();
+                            if (cc != null)
+                            {
+                                <td>
+                                    <input type="checkbox" checked onclick="return false;" />
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <input type="checkbox" onclick="return false;" />
+                                </td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

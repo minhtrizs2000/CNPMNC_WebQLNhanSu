@@ -1,0 +1,54 @@
+﻿@model Web_QLNS.Controllers.ViewModelNV
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>HopDongLaoDong</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="hopDongLaoDong.Idnv" class="control-label"></label>
+                <input asp-for="hopDongLaoDong.Idnv" class="form-control" readonly />
+                <span asp-validation-for="hopDongLaoDong.Idnv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nhanVien.TenNv" class="control-label"></label>
+                @foreach (var nv in Model.ListNhanVien)
+                {
+                    if (nv.Idnv == Model.hopDongLaoDong.Idnv)
+                    {
+                        <input asp-for="@nv.TenNv" class="form-control" readonly />
+                    }
+                }
+                <span asp-validation-for="nhanVien.TenNv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="hopDongLaoDong.LuongCb" class="control-label"></label>
+                <input asp-for="hopDongLaoDong.LuongCb" class="form-control" />
+                <span asp-validation-for="hopDongLaoDong.LuongCb" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="hopDongLaoDong.NgayKy" class="control-label"></label>
+                <input asp-for="hopDongLaoDong.NgayKy" class="form-control" readonly />
+                <span asp-validation-for="hopDongLaoDong.NgayKy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

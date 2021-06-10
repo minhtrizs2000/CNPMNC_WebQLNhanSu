@@ -1,0 +1,36 @@
+﻿@model Web_QLNS.Models.ChucVu
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="col-md-2">
+
+</div>
+<div class="col-md-1">
+    <a asp-action="Index" class="btn btn-outline-warning mt-md-5"><i class="fa fa-angle-left"></i> Trở về </a>
+</div>
+<div class="col-md-6 mt-md-5">
+    <form asp-action="Edit" class="create__NV">
+        <h1 class="text-center mb-md-5">Sửa thông tin chức vụ</h1>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <label asp-for="Idcv" class="col-md-3 control-label"></label>
+            <input asp-for="Idcv" class="col-md-9 form-control" readonly />
+            <span asp-validation-for="Idcv" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label asp-for="TenCv" class="col-md-3 control-label"></label>
+            <input asp-for="TenCv" class="col-md-9 form-control" />
+            <span asp-validation-for="TenCv" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label asp-for="HeSo" class="col-md-3 control-label"></label>
+            <input asp-for="HeSo" class="col-md-9 form-control" />
+            <span asp-validation-for="HeSo" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <input type="submit" value="Lưu" class="btn btn-outline-warning col-md-12" />
+        </div>
+    </form>
+</div>
